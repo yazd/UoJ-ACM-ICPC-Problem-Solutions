@@ -1,0 +1,28 @@
+Reverse A String
+
+Problem description:
+
+	You will receive a string as input. All you have to do is print it in reverse.
+
+Input description:
+
+	First line is N, number of test cases.
+	Each coming line represents one test case and contains the string to be reversed.
+
+Output description:
+
+	Print each input string in its own line reversed.
+
+Example:
+
+Input:
+3
+abc
+ACM
+University of Jordan
+
+Output:
+cba
+MCA
+nadroJ fo ytisrevinU
+

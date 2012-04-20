@@ -1,0 +1,38 @@
+Problem description:
+
+	Tic Tac Toe is the game of XO. You will be faced with a finished game board and you will need to decide who's the winner or if neither, declare a draw.
+	
+Input description:
+
+	First line is N, number of test cases.
+	The board is represented using x's, o's and .'s.
+	The dot represents that the cell belongs to neither player.
+	Each test case will be separated by a line made of dashes.
+
+Output description:
+
+	If the X player wins, print “Player 1 wins!”.
+	If the O player wins, print “Player 2 wins!”.
+	If it is a draw, print “It is a draw.”
+
+Example:
+
+Input:
+3 
+oxx 
+xxo 
+oox 
+--- 
+xox 
+oxo 
+xoo 
+--- 
+..x 
+.xx 
+ooo
+
+Output:
+It is a draw.
+Player 1 wins!
+Player 2 wins!
+
