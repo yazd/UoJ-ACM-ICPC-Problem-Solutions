@@ -35,19 +35,6 @@ newCase:
 		double rad;
 		in >> rad;
 
-		/*double c1, c2;
-		c1 = u[0] + s[0] * 100 + m[0] * 100 * 60 + h[0] * 100 * 60 * 60;
-
-		c2 = u[1] + s[1] * 100 + m[1] * 100 * 60 + h[1] * 100 * 60 * 60;
-
-		double total = 100 + 60 * 100 + 60 * 60 * 100 + 12 * 60 * 60 * 100;
-
-		double p1 = PI / total * c1;
-		double p2 = PI / total * c2;
-
-		cout << p1 << endl;
-		cout << p2 << endl;*/
-
 		cout << nCase << ". ";
 		printf("%.3f", (rad * rad * (z2 - z1) * PI));
 		cout << endl;

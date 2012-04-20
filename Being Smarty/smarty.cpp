@@ -10,7 +10,7 @@ uint property(uint row, uint num) {
 	return ((row-1) / num) % 2 + 1;
 }
 
-string getProperty(string cline, uint chosen) {
+string getProperty(string line, uint chosen) {
 
 	string p1, p2;
 
@@ -21,57 +21,57 @@ string getProperty(string cline, uint chosen) {
 	bool p1End = false;
 	bool p2Start = false;
 
-	for (int i = 0; i < cline.length(); i++) {
+	for (int i = 0; i < line.length(); i++) {
 
 		if (!p1Start) {
-			if (cline[i] == ' ')
+			if (line[i] == ' ')
 				continue;
-			else if (cline[i] == '\"') {
+			else if (line[i] == '\"') {
 				p1Start = true;
 				p1Quote = true;
 			} else {
 				p1Start = true;
-				p1.append(1, cline[i]);
+				p1.append(1, line[i]);
 			}
 		} else {
 			if (!p1End) {
 				if (p1Quote) {
-					if (cline[i] == '\"') {
+					if (line[i] == '\"') {
 						if (chosen == 1) return p1;
 						p1End = true;
 					} else {
-						p1.append(1, cline[i]);
+						p1.append(1, line[i]);
 					}
 				} else {
-					if (cline[i] == ' ') {
+					if (line[i] == ' ') {
 						if (chosen == 1) return p1;
 						p1End = true;
 					} else {
-						p1.append(1, cline[i]);
+						p1.append(1, line[i]);
 					}
 				}
 			} else {
 				if (!p2Start) {
-					if (cline[i] == ' ')
+					if (line[i] == ' ')
 						continue;
-					else if (cline[i] == '\"') {
+					else if (line[i] == '\"') {
 						p2Start = true;
 						p2Quote = true;
 					} else {
 						p2Start = true;
-						p2.append(1, cline[i]);
+						p2.append(1, line[i]);
 					}
 				} else {
 					if (p2Quote) {
-						if (cline[i] == '\"')
+						if (line[i] == '\"')
 							return p2;
 						else
-							p2.append(1, cline[i]);
+							p2.append(1, line[i]);
 					} else {
-						if (cline[i] == ' ') {
+						if (line[i] == ' ') {
 							return p2;;
 						} else {
-							p2.append(1, cline[i]);
+							p2.append(1, line[i]);
 						}
 					}
 				}
