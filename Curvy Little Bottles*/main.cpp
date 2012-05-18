@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-#include <math.h>
+#include <cmath>
 #include <iomanip>
-#include <stdlib.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -14,13 +14,10 @@ struct Polynomial {
 
 void printPoly(Polynomial poly) {
 
-	bool started = false;
-	
-	for (int i = poly.length - 1; i >= 0; i--) {
-		if (!started && (poly.coefficients[i] == 0)) continue;
-		started = true;
+	for (int i = 0; i < poly.length; i++) {
+		if (poly.coefficients[i] == 0) continue;
 		cout << poly.coefficients[i];
-		if (i > 0) cout << " x^" << i << " + ";
+		cout << " x^" << i << " + ";
 	}
 	
 	cout << endl;
@@ -46,16 +43,19 @@ Polynomial* integrate(Polynomial poly) {
 Polynomial* revVolume(Polynomial shape) {
 	
 	Polynomial* y_2 = new Polynomial;
-	y_2->coefficients = new double[shape.length * 2];
+	y_2->coefficients = new double[shape.length * 2 - 1];
 	
-	y_2->length = shape.length * 2;
+	y_2->length = shape.length * 2 - 1;
 	
-	for (int i = 0; i < shape.length * 2; i++)
-		y_2 -> coefficients[i] = 0;
+	for (int i = 0; i < y_2->length; i++)
+		y_2->coefficients[i] = 0;
 		
+	//printPoly(shape);
+
 	for (int i = 0; i < shape.length; i++) {
 		for (int j = 0; j < shape.length; j++) {
-			y_2->coefficients[i + j] += M_PI * shape.coefficients[i] * shape.coefficients[j];
+			//cout << "Adding to X^" << (i + j) << ": " << shape.coefficients[i] * shape.coefficients[j] << endl;
+			y_2->coefficients[i + j] += shape.coefficients[i] * shape.coefficients[j] * M_PI;
 		}
 	}
 	
@@ -102,7 +102,9 @@ int main() {
 			cin >> shape.coefficients[shape.length - i];
 		
 		shape.length = 11;
-				
+		
+		//printPoly(shape);
+		
 		double xlow, xhigh;			
 		cin >> xlow >> xhigh;
 				
@@ -137,11 +139,27 @@ int main() {
 		while (true) {
 				
 			double vol = eval(volume, nextTestPoint);
-				
-			if ((vol <= target + 0.005) && (vol >= target - 0.005)) {
+
+			double thisError = abs(target - eval(volume, nextTestPoint));
+
+			if (thisError < 1.0e-12) {
 			
-				if (abs(target - eval(volume, nextTestPoint + 0.01)) < abs(target - vol)) nextTestPoint = nextTestPoint + 0.01;
-				else if (abs(target - eval(volume, nextTestPoint - 0.01)) < abs(target - vol)) nextTestPoint = nextTestPoint - 0.01;
+				double nextError = abs(target - eval(volume, nextTestPoint + 0.01));
+				double prevError = abs(target - eval(volume, nextTestPoint - 0.01));
+
+				if (prevError < nextError) {
+					if (prevError < thisError)
+						nextTestPoint = nextTestPoint - 0.01;
+					
+				} else {
+					if (nextError < thisError)
+						nextTestPoint = nextTestPoint + 0.01;
+				
+				}
+
+				if ((pos.size() > 0) && (abs(nextTestPoint - pos[pos.size() - 1]) < 0.05)) {;
+					while (true) {}
+				}
 
 				pos.push_back(nextTestPoint);
 				target += inc;
@@ -165,12 +183,16 @@ int main() {
 			
 		}		
 		
+		cout << setiosflags(ios::fixed) << setprecision(2);
+
 		cout << "Case " << ++casenumber << ": " << totalVolume << endl;
 		
-		for (int i = 0; i < pos.size(); i++)
-			cout << setiosflags(ios::fixed) << setprecision(2) << (pos[i] - xlow) << " ";
-				
+		for (int i = 0; i < pos.size() - 1; i++)
+			cout << (pos[i] - xlow) << " ";
+		
+		cout << (pos[pos.size()-1] - xlow);
 		cout << endl;
+
 	}
 	
 	return 0;
