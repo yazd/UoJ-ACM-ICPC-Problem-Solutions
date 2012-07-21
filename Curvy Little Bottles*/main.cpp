@@ -3,7 +3,6 @@
 
 #include <cmath>
 #include <iomanip>
-#include <cstdlib>
 
 using namespace std;
 
@@ -130,7 +129,7 @@ int main() {
 		double target = inc;
 				
 		double lowBound = xlow;
-		double uppBound = xhigh;
+		double uppBound = xhigh - 0.10;
 		
 		vector <double> pos;
 		
